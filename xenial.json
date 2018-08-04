@@ -22,7 +22,7 @@
         "<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `build_name` }}-vmware ",
+        "hostname={{ user `build_name` }} ",
         "fb=false debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
         "initrd=/install/initrd.gz -- <enter>"
@@ -67,7 +67,7 @@
         "<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `build_name` }}-vmware ",
+        "hostname={{ user `build_name` }} ",
         "fb=false debconf/fronten=d=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
         "initrd=/install/initrd.gz -- <enter>"
@@ -130,7 +130,9 @@
       "type": "shell"
     },
     {
-      "only": ["{{ user `build_name` }}-vbox"],
+      "only": [
+        "{{ user `build_name` }}-vbox"
+      ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/virtualbox.sh",
@@ -139,7 +141,9 @@
       "type": "shell"
     },
     {
-      "only": ["{{ user `build_name` }}-vmware"],
+      "only": [
+        "{{ user `build_name` }}-vmware"
+      ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/vmware.sh",
@@ -153,26 +157,29 @@
       {
         "type": "vagrant",
         "keep_input_artifact": true,
-        "output": ".kitchen/kitchen-vagrant/default-{{.BuildName}}/{{.BuildName}}.box"
+        "output": "{{.BuildName}}.box"
       },
       {
         "type": "shell-local",
-        "only": ["{{ user `build_name` }}-vbox"],
+        "only": [
+          "{{ user `build_name` }}-vbox"
+        ],
         "inline": [
           "vagrant box add --name xenial64 --provider virtualbox xenial64-vbox.box -f",
           "kitchen test vbox",
           "vagrant box remove xenial64 --provider virtualbox"
-          ]
+        ]
       },
       {
         "type": "shell-local",
-        "only": ["{{ user `build_name` }}-vmware"],
+        "only": [
+          "{{ user `build_name` }}-vmware"
+        ],
         "inline": [
           "vagrant box add --name xenial64 --provider vmware_desktop xenial64-vmware.box -f",
           "kitchen test vmware",
           "vagrant box remove xenial64 --provider vmware_desktop"
-          ]
-
+        ]
       }
     ]
   ]
