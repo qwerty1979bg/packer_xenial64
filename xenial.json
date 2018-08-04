@@ -166,8 +166,7 @@
         ],
         "inline": [
           "vagrant box add --name xenial64 --provider virtualbox xenial64-vbox.box -f",
-          "kitchen test vbox",
-          "vagrant box remove xenial64 --provider virtualbox"
+          "kitchen test vbox"
         ]
       },
       {
@@ -177,8 +176,7 @@
         ],
         "inline": [
           "vagrant box add --name xenial64 --provider vmware_desktop xenial64-vmware.box -f",
-          "kitchen test vmware",
-          "vagrant box remove xenial64 --provider vmware_desktop"
+          "kitchen test vmware"
         ]
       }
     ]
