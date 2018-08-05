@@ -30,13 +30,13 @@
     ],
     "provisioners": [
       {
-        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -H -E sh '{{ .Path }}'",
         "expect_disconnect": true,
         "script": "scripts/packages.sh",
         "type": "shell"
       },
       {
-        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -H -E sh '{{ .Path }}'",
         "script": "scripts/azure_cleanup.sh",
         "type": "shell"
       }

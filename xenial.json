@@ -119,13 +119,13 @@
   ],
   "provisioners": [
     {
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -H -E -S bash '{{.Path}}'",
       "expect_disconnect": true,
       "script": "scripts/packages.sh",
       "type": "shell"
     },
     {
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -H -E -S bash '{{.Path}}'",
       "script": "scripts/vagrant.sh",
       "type": "shell"
     },
@@ -133,7 +133,7 @@
       "only": [
         "{{ user `build_name` }}-vbox"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -H -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/virtualbox.sh",
         "scripts/virtualbox_cleanup.sh"
@@ -144,7 +144,7 @@
       "only": [
         "{{ user `build_name` }}-vmware"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -H -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/vmware.sh",
         "scripts/vmware_cleanup.sh"
@@ -165,7 +165,7 @@
           "{{ user `build_name` }}-vbox"
         ],
         "inline": [
-          "vagrant box add --name xenial64 --provider virtualbox xenial64-vbox.box -f",
+          "vagrant box add --name {{ user `build_name` }} --provider virtualbox {{ user `build_name` }}-vbox.box -f",
           "kitchen test vbox"
         ]
       },
@@ -175,7 +175,7 @@
           "{{ user `build_name` }}-vmware"
         ],
         "inline": [
-          "vagrant box add --name xenial64 --provider vmware_desktop xenial64-vmware.box -f",
+          "vagrant box add --name {{ user `build_name` }} --provider vmware_desktop {{ user `build_name` }}-vmware.box -f",
           "kitchen test vmware"
         ]
       }
