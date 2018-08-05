@@ -18,3 +18,9 @@ kitchen-vmware: xenial64-vmware.box
 	kitchen test vmware
 
 kitchen: kitchen-vbox kitchen-vmware
+
+.PHONY: clean
+clean:
+	-vagrant box remove -f xenial64 --provider virtualbox
+	-vagrant box remove -f xenial64 --provider vmware_desktop
+	-rm -fr output-*/ *.box
