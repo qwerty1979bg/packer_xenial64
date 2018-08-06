@@ -3,6 +3,7 @@
 variable "prefix" {
   default = "alvaro"
 }
+
 variable "datacenter" {
   default = "eastus"
 }

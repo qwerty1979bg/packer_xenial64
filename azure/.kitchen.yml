@@ -13,11 +13,12 @@ provisioner:
 platforms:
   - name: azure/xenial64
     driver:
-      imageOffer: alvaroXenial64
+      image_id: <%= ENV['AZURE_IMAGE_ID'] %>
       vm_name: myvm
       vm_tags:
         ostype: linux
         distro: ubuntu
+      use_managed_disk: true
 
 verifier:
   name: inspec
